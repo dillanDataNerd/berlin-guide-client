@@ -13,6 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 type Props = {
   window?: () => Window;
@@ -38,7 +39,11 @@ function HeaderBar(props: Props) {
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemButton 
+              component={Link} 
+              to={`/${item.toLowerCase()}`}
+              sx={{ textAlign: "center" }}
+            >
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
@@ -51,7 +56,7 @@ function HeaderBar(props: Props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", justifyContent:"space-between" }}>
       <CssBaseline />
       <AppBar component="nav">
         <Toolbar>
@@ -66,25 +71,36 @@ function HeaderBar(props: Props) {
           </IconButton>
 
           <Box
-            component="img"
-            src="/berlin-wall.png"
-            alt="icon"
-            height={40}
-            sx={{ pr: 2 }}
-          />
-
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            textAlign={"left"}
-            fontWeight={"bold"}
+            component={Link}
+            to="/"
+            sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}
           >
-            Berlin Guide
-          </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Box
+              component="img"
+              src="/berlin-wall.png"
+              alt="icon"
+              height={40}
+              sx={{ pr: 2 }}
+            />
+
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+              textAlign={"center"}
+              fontWeight={"bold"}
+            >
+              Berlin Guide
+            </Typography>
+          </Box>
+          <Box sx={{ textAlign:"right", display: { xs: "none", sm: "block" }, flexGrow: 1 }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
+              <Button 
+                key={item} 
+                component={Link} 
+                to={`/${item.toLowerCase()}`}
+                sx={{ color: "#fff" }}
+              >
                 {item}
               </Button>
             ))}
