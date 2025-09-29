@@ -1,7 +1,7 @@
 import HeaderBar from "../components/HeaderBar";
 import axios from "axios";
 import { Activity } from "../types";
-import { Button } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import ActivityCard from "../components/ActivityCard";
 
@@ -29,13 +29,14 @@ function ActivitiesPage() {
   return (
     <>
       <HeaderBar />
-      <div>Hello</div>
-      <Button onClick={getActivities}> Fetch activities</Button>
+      <Box height={50}></Box>
 
-      {activities.map((element: Activity) => {
-        console.log(element);
-        return <ActivityCard key={element.id} activityDetails={element} />;
-      })}
+      <Grid container spacing={2} justifyContent={"center"}>
+        {activities.map((element: Activity) => {
+          console.log(element);
+          return <ActivityCard key={element.id} activityDetails={element} />;
+        })}
+      </Grid>
     </>
   );
 }

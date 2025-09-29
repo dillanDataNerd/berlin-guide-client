@@ -1,4 +1,4 @@
-import { Activity } from "../types";
+import { Trip } from "../types";
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -7,29 +7,32 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 type Props = {
-  activityDetails: Activity;
+  tripDetails: Trip;
 };
 
 // const [photo, setPhoto] = useState<String>("");
 
 // useEffect(() => {}, []);
 
-function ActivityCard({ activityDetails }: Props) {
+function TripCard({ tripDetails }: Props) {
   return (
     <Card sx={{ maxWidth: 250 }}>
       <CardMedia
         sx={{ height: 100 }}
-        image={"public/placeholder-activity-image.jpg"}
-        title="activity image"
+        image={"public/placeholder-trip-image.jpeg"}
+        title="trip image"
       />
       <CardContent>
-        <Typography gutterBottom variant="h6" component="div">
-          {activityDetails.title}
-        </Typography>
+        <Link to={`/trip/${tripDetails.id}`}>
+          <Typography gutterBottom variant="h6" component="div">
+            {tripDetails.title}
+          </Typography>
+        </Link>
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          {activityDetails.description}
+          {tripDetails.highlights}
         </Typography>
       </CardContent>
       {/* <CardActions>
@@ -40,4 +43,4 @@ function ActivityCard({ activityDetails }: Props) {
   );
 }
 
-export default ActivityCard;
+export default TripCard;
