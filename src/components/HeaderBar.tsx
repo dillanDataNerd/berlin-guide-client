@@ -39,8 +39,8 @@ function HeaderBar(props: Props) {
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton 
-              component={Link} 
+            <ListItemButton
+              component={Link}
               to={`/${item.toLowerCase()}`}
               sx={{ textAlign: "center" }}
             >
@@ -56,78 +56,93 @@ function HeaderBar(props: Props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex", justifyContent:"space-between" }}>
-      <CssBaseline />
-      <AppBar component="nav">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
+    <>
+      <Box height={50}></Box>
 
-          <Box
-            component={Link}
-            to="/"
-            sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}
-          >
-            <Box
-              component="img"
-              src="/berlin-wall.png"
-              alt="icon"
-              height={40}
-              sx={{ pr: 2 }}
-            />
-
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-              textAlign={"center"}
-              fontWeight={"bold"}
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <CssBaseline />
+        <AppBar component="nav">
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: "none" } }}
             >
-              Berlin Guide
-            </Typography>
-          </Box>
-          <Box sx={{ textAlign:"right", display: { xs: "none", sm: "block" }, flexGrow: 1 }}>
-            {navItems.map((item) => (
-              <Button 
-                key={item} 
-                component={Link} 
-                to={`/${item.toLowerCase()}`}
-                sx={{ color: "#fff" }}
+              <MenuIcon />
+            </IconButton>
+
+            <Box
+              component={Link}
+              to="/"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              <Box
+                component="img"
+                src="/berlin-wall.png"
+                alt="icon"
+                height={40}
+                sx={{ pr: 2 }}
+              />
+
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+                textAlign={"center"}
+                fontWeight={"bold"}
               >
-                {item}
-              </Button>
-            ))}
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <nav>
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
-      </nav>
-    </Box>
+                Berlin Guide
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                textAlign: "right",
+                display: { xs: "none", sm: "block" },
+                flexGrow: 1,
+              }}
+            >
+              {navItems.map((item) => (
+                <Button
+                  key={item}
+                  component={Link}
+                  to={`/${item.toLowerCase()}`}
+                  sx={{ color: "#fff" }}
+                >
+                  {item}
+                </Button>
+              ))}
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <nav>
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true,
+            }}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </nav>
+      </Box>
+    </>
   );
 }
 

@@ -4,6 +4,7 @@ import { Trip } from "../types";
 import { Box, Button, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import TripCard from "../components/TripCard";
+import NewElementCard from "../components/NewElementCard";
 
 function TripsPage() {
   async function getTrips() {
@@ -32,6 +33,7 @@ function TripsPage() {
       <Box height={50}></Box>
 
       <Grid container spacing={2} justifyContent={"center"}>
+        <NewElementCard />
         {activities.map((element: Trip) => {
           console.log(element);
           return <TripCard key={element.id} tripDetails={element} />;
