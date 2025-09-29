@@ -1,10 +1,41 @@
 import HeaderBar from "../components/HeaderBar";
+import axios from "axios";
+import { Activity } from "../types";
+import { Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import ActivityCard from "../components/ActivityCard";
 
 function ActivitiesPage() {
+  async function getActivities() {
+    try {
+      const response = await axios.get<Activity[]>(
+        "http://localhost:5005/api/activities"
+      );
+      setActivities(response.data);
+      console.log(activities);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const [activities, setActivities] = useState<Activity[]>([]);
+
+  useEffect(() => {
+    getActivities();
+
+    return () => {};
+  }, []);
+
   return (
     <>
       <HeaderBar />
       <div>Hello</div>
+      <Button onClick={getActivities}> Fetch activities</Button>
+
+      {activities.map((element: Activity) => {
+        console.log(element);
+        return <ActivityCard key={element.id} activityDetails={element} />;
+      })}
     </>
   );
 }
