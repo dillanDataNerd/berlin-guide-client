@@ -29,7 +29,6 @@ function ActivitiesPage() {
   return (
     <>
       <HeaderBar />
-      <Box height={50}></Box>
 
       <Grid container spacing={2} justifyContent={"center"}>
         {activities.map((element: Activity) => {
