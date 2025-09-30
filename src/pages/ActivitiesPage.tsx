@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import ActivityCard from "../components/ActivityCard";
 
 function ActivitiesPage() {
+  const VITE_SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
   async function getActivities() {
     try {
       const response = await axios.get<Activity[]>(
-        "http://localhost:5005/api/activities"
+        `${VITE_SERVER_URL}:5005/api/activities`
       );
       setActivities(response.data);
       console.log(activities);
