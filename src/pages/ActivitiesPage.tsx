@@ -11,7 +11,7 @@ function ActivitiesPage() {
   async function getActivities() {
     try {
       const response = await axios.get<Activity[]>(
-        `${VITE_SERVER_URL}:5005/api/activities`
+        `${VITE_SERVER_URL}/api/activities`
       );
       setActivities(response.data);
       console.log(activities);

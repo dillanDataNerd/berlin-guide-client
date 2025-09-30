@@ -7,17 +7,32 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import TripDetailPage from "../pages/TripDetailPage";
+import axios from "axios";
 
 type Props = {
   tripDetails: Trip;
 };
 
-// const [photo, setPhoto] = useState<String>("");
+function TripCard({ tripDetails, allTrips, setTrips }: Props) {
+  const VITE_SERVER_URL: String = import.meta.env.VITE_SERVER_URL;
+  const navigate = useNavigate();
 
-// useEffect(() => {}, []);
+  async function HandleDelete(): Promise<void> {
+    try {
+      const response = await axios.delete(
+        `${VITE_SERVER_URL}/api/trips/${tripDetails.id}`
+      );
+      setTrips(allTrips.filter((t: Trip) => t.id !== tripDetails.id));
+    } catch (error) {
+      console.log(error);
+    }
+    setTrips();
+  }
 
-function TripCard({ tripDetails }: Props) {
+  function HandleEdit(): void {}
+
   return (
     <Card sx={{ maxWidth: 250 }}>
       <CardMedia
@@ -26,7 +41,7 @@ function TripCard({ tripDetails }: Props) {
         title="trip image"
       />
       <CardContent>
-        <Link to={`/trip/${tripDetails.id}`}>
+        <Link to={`/trips/${tripDetails.id}`}>
           <Typography gutterBottom variant="h6" component="div">
             {tripDetails.title}
           </Typography>
@@ -35,10 +50,24 @@ function TripCard({ tripDetails }: Props) {
           {tripDetails.highlights}
         </Typography>
       </CardContent>
-      {/* <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
+      <CardActions>
+        <Button
+          size="small"
+          onClick={() => {
+            HandleEdit();
+          }}
+        >
+          Edit
+        </Button>
+        <Button
+          size="small"
+          onClick={() => {
+            HandleDelete();
+          }}
+        >
+          Delete
+        </Button>
+      </CardActions>
     </Card>
   );
 }

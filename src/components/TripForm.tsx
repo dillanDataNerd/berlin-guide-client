@@ -71,7 +71,7 @@ function TripForm({ tripId }: TripFormProps) {
     }
   }
 
-  async function HandleSubmit(e: HTMLElement) {
+  async function HandleSubmit() {
     const body = {
       title,
       guests,

@@ -7,25 +7,23 @@ import TripCard from "../components/TripCard";
 import NewElementCard from "../components/NewElementCard";
 
 function TripsPage() {
+  const [trips, setTrips] = useState<Trip[]>([]);
+  const VITE_SERVER_URL: String = import.meta.env.VITE_SERVER_URL;
+
   async function getTrips() {
     try {
-      const response = await axios.get<Trip[]>(
-        "http://localhost:5005/api/trips"
-      );
+      const response = await axios.get<Trip[]>(`${VITE_SERVER_URL}/api/trips`);
       setTrips(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   }
 
-  const [activities, setTrips] = useState<Trip[]>([]);
-
   useEffect(() => {
     getTrips();
 
     return () => {};
-  }, []);
+  }, [trips]);
 
   return (
     <>
@@ -34,9 +32,16 @@ function TripsPage() {
 
       <Grid container spacing={2} justifyContent={"center"}>
         <NewElementCard />
-        {activities.map((element: Trip) => {
+        {trips.map((element: Trip) => {
           console.log(element);
-          return <TripCard key={element.id} tripDetails={element} />;
+          return (
+            <TripCard
+              key={element.id}
+              tripDetails={element}
+              allTrips={trips}
+              setTrips={setTrips}
+            />
+          );
         })}
       </Grid>
     </>

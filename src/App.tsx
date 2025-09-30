@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import TripsPage from "./pages/TripsPage";
 import ErrorPage from "./pages/ErrorPage";
 import TripCreatePage from "./pages/TripCreatePage";
+import TripDetailPage from "./pages/TripDetailPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/activities" element={<ActivitiesPage />} />
         <Route path="/trips" element={<TripsPage />} />
+        <Route path="/trips/:tripId" element={<TripDetailPage />} />
         <Route path="/trips/new" element={<TripCreatePage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
