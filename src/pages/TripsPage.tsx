@@ -23,7 +23,7 @@ function TripsPage() {
     getTrips();
 
     return () => {};
-  }, [trips]);
+  }, []);
 
   return (
     <>
@@ -33,7 +33,6 @@ function TripsPage() {
       <Grid container spacing={2} justifyContent={"center"}>
         <NewElementCard />
         {trips.map((element: Trip) => {
-          console.log(element);
           return (
             <TripCard
               key={element.id}

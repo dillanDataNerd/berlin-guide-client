@@ -17,7 +17,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 
 type TripFormProps = { tripId?: string };
 
@@ -33,9 +33,12 @@ function TripForm({ tripId }: TripFormProps) {
   const [selectedActivityIds, setSelectedActivityIds] = useState<string[]>([]);
   const [updatedAt, setUpdatedAt] = useState<Date>(new Date());
   const [allActivities, setAllActivities] = useState<Activity[]>([]);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const VITE_SERVER_URL: String = import.meta.env.VITE_SERVER_URL;
   const navigate = useNavigate();
+  const paramId = useParams().tripId;
+
   async function getTripData(tripId: string): Promise<void> {
     try {
       const response = await axios.get<Trip>(
@@ -86,7 +89,14 @@ function TripForm({ tripId }: TripFormProps) {
       updatedAt: updatedAt.toISOString(),
     };
     try {
-      const response = await axios.post(`${VITE_SERVER_URL}/api/trips`, body);
+      if (isEditing) {
+        const response = await axios.patch(
+          `${VITE_SERVER_URL}/api/trips/${paramId}`,
+          body
+        );
+      } else {
+        const response = await axios.post(`${VITE_SERVER_URL}/api/trips`, body);
+      }
       navigate("/trips");
     } catch (error) {
       console.log(error);
@@ -94,7 +104,10 @@ function TripForm({ tripId }: TripFormProps) {
   }
 
   useEffect(() => {
-    if (tripId) getTripData(tripId);
+    if (paramId) {
+      getTripData(paramId);
+      setIsEditing(true);
+    }
     getActivities();
   }, [tripId]);
 

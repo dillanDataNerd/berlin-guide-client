@@ -8,15 +8,19 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import TripDetailPage from "../pages/TripDetailPage";
+import TripDetailPage from "../pages/TripEditPage";
 import axios from "axios";
+
+// Vite provides types for import.meta.env automatically
 
 type Props = {
   tripDetails: Trip;
+  allTrips: Trip[];
+  setTrips: React.Dispatch<React.SetStateAction<Trip[]>>;
 };
 
 function TripCard({ tripDetails, allTrips, setTrips }: Props) {
-  const VITE_SERVER_URL: String = import.meta.env.VITE_SERVER_URL;
+  const VITE_SERVER_URL: String = import.meta.env.VITE_SERVER_URL as string;
   const navigate = useNavigate();
 
   async function HandleDelete(): Promise<void> {
@@ -24,14 +28,15 @@ function TripCard({ tripDetails, allTrips, setTrips }: Props) {
       const response = await axios.delete(
         `${VITE_SERVER_URL}/api/trips/${tripDetails.id}`
       );
-      setTrips(allTrips.filter((t: Trip) => t.id !== tripDetails.id));
+      setTrips(allTrips.filter((t) => t.id !== tripDetails.id));
     } catch (error) {
       console.log(error);
     }
-    setTrips();
   }
 
-  function HandleEdit(): void {}
+  function HandleEdit(): void {
+    navigate(`/trips/edit/${tripDetails.id}`);
+  }
 
   return (
     <Card sx={{ maxWidth: 250 }}>
