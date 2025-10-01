@@ -4,9 +4,12 @@ import { Activity } from "../types";
 import { Box, Button, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import ActivityCard from "../components/ActivityCard";
+import SearchBar from "../components/SearchBar";
 
 function ActivitiesPage() {
   const VITE_SERVER_URL = import.meta.env.VITE_SERVER_URL;
+  const [searchString, setSearchString] = useState<string>("");
+  const [activities, setActivities] = useState<Activity[]>([]);
 
   async function getActivities() {
     try {
@@ -14,13 +17,10 @@ function ActivitiesPage() {
         `${VITE_SERVER_URL}/api/activities`
       );
       setActivities(response.data);
-      console.log(activities);
     } catch (error) {
       console.error(error);
     }
   }
-
-  const [activities, setActivities] = useState<Activity[]>([]);
 
   useEffect(() => {
     getActivities();
@@ -31,13 +31,17 @@ function ActivitiesPage() {
   return (
     <>
       <HeaderBar />
-
-      <Grid container spacing={2} justifyContent={"center"}>
-        {activities.map((element: Activity) => {
-          console.log(element);
-          return <ActivityCard key={element.id} activityDetails={element} />;
-        })}
-      </Grid>
+      <Box justifyContent={"center"}>
+        <SearchBar
+          searchString={searchString}
+          setSearchString={setSearchString}
+        />
+        <Grid container spacing={2} justifyContent={"center"}>
+          {activities.map((element: Activity) => {
+            return <ActivityCard key={element.id} activityDetails={element} />;
+          })}
+        </Grid>
+      </Box>
     </>
   );
 }
