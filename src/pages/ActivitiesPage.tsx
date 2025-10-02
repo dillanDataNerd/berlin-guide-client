@@ -7,24 +7,17 @@ import ActivityCard from "../components/ActivityCard";
 import SearchBar from "../components/SearchBar";
 import { useSearchParams } from "react-router-dom";
 
-interface ImportMetaEnv {
-  VITE_SERVER_URL: string;
-}
-
-interface ImportMeta {
-  env: ImportMetaEnv;
-}
-
 let timeoutId: number;
 
 function ActivitiesPage() {
-  const VITE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL;
+  const VITE_SERVER_URL = import.meta.env.VITE_SERVER_URL;
+  
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchTitle, setSearchTitle] = useState<string | null>(
+  const [searchTitle, setSearchTitle] = useState<string>(
     searchParams.get("title") || ""
   );
-  const [filterFave, setFilterFave] = useState<string | null>(
-    searchParams.get("fav")
+  const [filterFave, setFilterFave] = useState<string>(
+    searchParams.get("fav")||""
   );
   const [filterTags, setFilterTags] = useState<string>(
     searchParams.get("tags") || ""

@@ -12,16 +12,12 @@ type Props = {
   activityDetails: Activity;
 };
 
-// const [photo, setPhoto] = useState<String>("");
-
-// useEffect(() => {}, []);
-
 function ActivityCard({ activityDetails }: Props) {
   return (
     <Card sx={{ maxWidth: 250 }}>
       <CardMedia
         sx={{ height: 100 }}
-        image={"public/placeholder-activity-image.jpg"}
+        image={activityDetails.photoUrl||"public/placeholder-activity-image.jpg"}
         title="activity image"
       />
       <CardContent>
