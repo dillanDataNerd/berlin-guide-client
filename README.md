@@ -1,7 +1,5 @@
 # Berlin guide client
 
-# Berlin Guide App
-
 ## Summary
 Berlin Guide is a full-stack web application that helps people explore activities in Berlin and log what they did during their visit.  
 
