@@ -36,3 +36,11 @@ export type Trip = {
   activities: Activity[]; // relation
   updatedAt: Date;
 };
+
+interface ImportMetaEnv {
+  VITE_SERVER_URL: string;
+}
+
+interface ImportMeta {
+  env: ImportMetaEnv;
+}

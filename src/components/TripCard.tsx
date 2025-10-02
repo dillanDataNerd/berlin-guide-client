@@ -55,7 +55,7 @@ function TripCard({ tripDetails, allTrips, setTrips }: Props) {
       <Card sx={{ width: 250, maxHeight: 300 }}>
         <CardMedia
           sx={{ height: 100 }}
-          image={"/placeholder-trip-image.jpeg"} // thumbnail on the card
+          image={tripDetails.photoUrl || "/placeholder-trip-image.jpeg"} // thumbnail on the card
           title="trip image"
         />
         <CardContent>
@@ -63,7 +63,9 @@ function TripCard({ tripDetails, allTrips, setTrips }: Props) {
             {tripDetails.title}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
-            {tripDetails.dateStarted}
+            {tripDetails.dateStarted
+              ? new Date(tripDetails.dateStarted).toLocaleDateString()
+              : "—"}
           </Typography>
         </CardContent>
         <CardActions>
