@@ -15,11 +15,11 @@ type Props = {
   filterFave: string;
   setFilterFave: React.Dispatch<React.SetStateAction<string>>;
 
-  filterTags: string; // MUST always be an array
+  // stored as hyphen-joined string, e.g. "FOOD-PARTY"
+  filterTags: string;
   setFilterTags: React.Dispatch<React.SetStateAction<string>>;
 };
 
-// Hard-coded tags
 const ALL_TAGS: string[] = [
   "FOOD",
   "HISTORIC",
@@ -46,24 +46,28 @@ function SearchBar({
   return (
     <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
       <Stack
-        direction={{ xs: "column", sm: "row" }}
+        direction="row"
         spacing={2}
-        m={2}
-        p={2}
         alignItems="center"
-        flexWrap="wrap"
-        sx={{ maxWidth: 900 }}
+        sx={{
+          p: 2,
+          flexWrap: "nowrap", // ✅ keep all on one line
+          overflowX: "auto", // allow scroll if too narrow
+          "& > *": { flexShrink: 0 }, // don't squish items
+        }}
       >
         <TextField
           label="Search title"
-          fullWidth
+          size="small"
           value={searchTitle}
           onChange={(e) => setSearchTitle(e.target.value)}
-          sx={{ minWidth: 150 }}
+          sx={{ width: 220 }}
         />
 
         <Autocomplete<string, true, false, false>
           multiple
+          size="small"
+          limitTags={2} // keep row compact
           options={ALL_TAGS}
           value={safeTags}
           onChange={(_, newValue) => setFilterTags((newValue ?? []).join("-"))}
@@ -74,6 +78,7 @@ function SearchBar({
             selected.map((tag, index) => (
               <Chip
                 label={tag}
+                size="small"
                 variant="outlined"
                 {...getTagProps({ index })}
               />
@@ -82,13 +87,15 @@ function SearchBar({
           renderInput={(params) => (
             <TextField {...params} label="Tags" placeholder="Select tags" />
           )}
-          fullWidth
+          sx={{ width: 340 }}
         />
 
         <FormControlLabel
           label="Only favourites"
+          sx={{ m: 0 }}
           control={
             <Switch
+              size="small"
               checked={filterFave === "true"}
               onChange={(e) => setFilterFave(e.target.checked ? "true" : "")}
             />
