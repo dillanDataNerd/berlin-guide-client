@@ -69,8 +69,6 @@ Key components inside `src/components`:
 - Advanced map view of activities (using latitude/longitude)  
 - Rating and review system for activities  
 - Ability to share trips with friends via unique links  
-- Responsive improvements and mobile-first polish  
-- Persist filters/search with URL params  
 
 ---
 
